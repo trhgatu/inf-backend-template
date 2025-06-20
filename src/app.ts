@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import mainRoutes from './routes/index.route';
-import { errorHandler } from './core/middleware/error.middleware';
+import { errorHandler, notFound } from './core/middleware';
 
 const app = express();
 
@@ -20,6 +20,7 @@ app.use(morgan('dev'));
 
 app.use('/api/v1', mainRoutes);
 
+app.use(notFound)
 app.use(errorHandler);
 
 export default app;
