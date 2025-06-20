@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import * as templateService from './__template__.service';
-import { AppError } from '@common/app-error';
-import { sendResponse } from '@common/response';
+import { sendResponse } from '@common';
 
 export const getAll = async (_: Request, res: Response, next: NextFunction) => {
   try {

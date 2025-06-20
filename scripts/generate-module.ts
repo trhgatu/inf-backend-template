@@ -4,7 +4,7 @@ import path from 'path';
 const moduleName = process.argv[2];
 
 if (!moduleName) {
-  console.error('❌ Vui lòng cung cấp tên module. Ví dụ: npm run generate quote');
+  console.error('Please provide a module name. Example: npm run generate quote');
   process.exit(1);
 }
 
@@ -12,7 +12,6 @@ const SRC_DIR = path.join(__dirname, '../src/modules');
 const TEMPLATE_DIR = path.join(SRC_DIR, '__template__');
 const TARGET_DIR = path.join(SRC_DIR, moduleName);
 
-// Helper để thay tên file & nội dung
 const replaceContent = (content: string, name: string) => {
   const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
   return content
@@ -21,7 +20,6 @@ const replaceContent = (content: string, name: string) => {
     .replace(/Template/g, capitalized);
 };
 
-// Đệ quy copy folder
 const copyFolder = (src: string, dest: string) => {
   if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
 
@@ -40,11 +38,11 @@ const copyFolder = (src: string, dest: string) => {
   });
 };
 
-// Check
+// Check if module already exists
 if (fs.existsSync(TARGET_DIR)) {
-  console.error(`❌ Module "${moduleName}" đã tồn tại.`);
+  console.error(`Module "${moduleName}" already exists.`);
   process.exit(1);
 }
 
 copyFolder(TEMPLATE_DIR, TARGET_DIR);
-console.log(`✅ Tạo module "${moduleName}" thành công tại src/modules/${moduleName}`);
+console.log(`Module "${moduleName}" has been created at src/modules/${moduleName}`);
