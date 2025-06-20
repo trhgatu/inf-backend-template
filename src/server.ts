@@ -7,6 +7,7 @@ import cors from 'cors'
 import { initSocketServer } from './socket'
 import router from './routes/index.route'
 import { connectMongoDB } from './config/database'
+import log from '@common/logger';
 
 dotenv.config()
 
@@ -30,7 +31,7 @@ async function startServer() {
   await connectMongoDB()
 
   httpServer.listen(port, () => {
-    console.log(`🚀 Server is running at http://localhost:${port}`)
+    log.info(`🚀 Server running at http://localhost:${port}`)
   })
 }
 
