@@ -12,8 +12,8 @@ export const getAll = async (_: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export const getById = async (req: Request, res: Response) => {
- try {
+export const getById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
     const data = await templateService.getTemplateById(req.params.id)
     if (!data) return next(new Error('Template not found'))
     sendResponse({ res, message: 'Template found', data })
@@ -22,7 +22,7 @@ export const getById = async (req: Request, res: Response) => {
   }
 };
 
-export const create = async (req: Request, res: Response) => {
+export const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await templateService.createTemplate(req.body)
     sendResponse({ res, message: 'Template created successfully', data, statusCode: 201 })
@@ -31,7 +31,7 @@ export const create = async (req: Request, res: Response) => {
   }
 };
 
-export const update = async (req: Request, res: Response) => {
+export const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await templateService.updateTemplate(req.params.id, req.body)
     if (!data) return next(new Error('Template not found to update'))
@@ -41,7 +41,7 @@ export const update = async (req: Request, res: Response) => {
   }
 };
 
-export const remove = async (req: Request, res: Response) => {
+export const remove = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await templateService.deleteTemplate(req.params.id)
     sendResponse({ res, message: 'Template deleted successfully' })
@@ -49,3 +49,5 @@ export const remove = async (req: Request, res: Response) => {
     next(err)
   }
 };
+
+

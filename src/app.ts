@@ -1,5 +1,5 @@
 // src/app.ts
-import express from 'express';
+import express, { ErrorRequestHandler } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
@@ -21,6 +21,6 @@ app.use(morgan('dev'));
 app.use('/api/v1', mainRoutes);
 
 app.use(notFound)
-app.use(errorHandler);
+app.use(errorHandler as unknown as ErrorRequestHandler)
 
 export default app;
