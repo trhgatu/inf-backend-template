@@ -1,5 +1,6 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import * as templateService from './__template__.service';
+import { AppError } from '@common/app-error';
 
 export const getAll = async (_: Request, res: Response) => {
   const data = await templateService.getAllTemplates();
