@@ -18,7 +18,7 @@
       "@middlewares/*": ["core/middleware/*"],
       "@middlewares": ["core/middleware/index.ts"],
       "@common/*": ["core/utils/*"],
-      "@common/utils": ["core/utils/index.ts"],
+      "@common": ["core/utils/index.ts"],
       "@modules/*": ["modules/*"],
       "@routes/*": ["routes/*"],
       "@types/*": ["core/types/*"],

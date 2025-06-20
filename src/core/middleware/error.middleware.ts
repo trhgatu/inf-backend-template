@@ -1,59 +1,94 @@
-import type { ErrorRequestHandler } from 'express';
-import { AppError } from '@common/app-error';
-import { ZodError } from 'zod';
+// src/core/middleware/error.middleware.ts
+import { Request, Response, NextFunction } from 'express'
+import { ZodError } from 'zod'
+import { sendError, AppError } from '@common'
 
-export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  const env = process.env.NODE_ENV || 'development';
+export const errorHandler = (
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const env = process.env.NODE_ENV || 'development'
 
-  let statusCode = err.statusCode || 500;
-  let message = err.message || 'Internal Server Error';
-  let errors: any[] = [];
-
+  // Ưu tiên AppError
   if (err instanceof AppError) {
-    const errorResponse: Record<string, any> = {
-      success: false,
-      message: err.message,
-    };
+    const statusCode = err.statusCode || 500
+    const message = err.message || 'Internal Server Error'
+    const errors: any[] = []
 
-    if (env !== 'production' && err.stack) errorResponse.stack = err.stack;
-    if (err.cause) errorResponse.error = err.cause;
+    if (err.cause instanceof ZodError) {
+      err.cause.errors.forEach((e) => {
+        errors.push({
+          path: e.path.join('.'),
+          message: e.message,
+        })
+      })
+    }
 
-    res.status(statusCode).json(errorResponse);
-    return;
+    return sendError({
+      res,
+      statusCode,
+      message,
+      errors,
+      stack: env !== 'production' ? err.stack : undefined,
+    })
   }
 
+  // Zod trực tiếp
   if (err instanceof ZodError) {
-    message = 'Validation error';
-    statusCode = 400;
-    errors = err.errors.map((e) => ({
+    const errors = err.errors.map((e) => ({
       path: e.path.join('.'),
       message: e.message,
-    }));
+    }))
+
+    return sendError({
+      res,
+      statusCode: 400,
+      message: 'Validation error',
+      errors,
+      stack: env !== 'production' ? err.stack : undefined,
+    })
   }
 
+  // Mongoose validation
   if (err.name === 'ValidationError') {
-    message = 'Mongoose validation error';
-    errors = Object.values(err.errors).map((e: any) => ({
+    const errors = Object.values(err.errors).map((e: any) => ({
       path: e.path,
       message: e.message,
-    }));
+    }))
+
+    return sendError({
+      res,
+      statusCode: 400,
+      message: 'Mongoose validation error',
+      errors,
+      stack: env !== 'production' ? err.stack : undefined,
+    })
   }
 
+  // Duplicate key
   if (err.code === 11000) {
-    message = 'Duplicate key error';
-    errors = Object.keys(err.keyValue).map((key) => ({
+    const errors = Object.keys(err.keyValue).map((key) => ({
       path: key,
       message: `${key} must be unique`,
-    }));
+    }))
+
+    return sendError({
+      res,
+      statusCode: 400,
+      message: 'Duplicate key error',
+      errors,
+      stack: env !== 'production' ? err.stack : undefined,
+    })
   }
 
-  const responsePayload: Record<string, any> = {
-    success: false,
-    message,
-  };
-
-  if (errors.length) responsePayload.errors = errors;
-  if (env !== 'production') responsePayload.stack = err.stack;
-
-  res.status(statusCode).json(responsePayload);
-};
+  // Fallback
+  return sendError({
+    res,
+    statusCode: err.statusCode || 500,
+    message: err.message || 'Internal Server Error',
+    errors: [],
+    stack: env !== 'production' ? err.stack : undefined,
+  })
+}
