@@ -6,7 +6,7 @@ import {
     createAuditLog,
     validate
 } from '@middlewares'
-import { CreateRoleSchema, UpdateRoleSchema } from './dtos'
+import { CreateRoleSchema, UpdateRoleSchema } from './role.validator'
 import { LogAction } from '@shared/enums'
 
 const router = express.Router()
