@@ -8,7 +8,7 @@ if (!moduleName) {
   process.exit(1);
 }
 
-const SRC_DIR = path.join(__dirname, '../src/modules');
+const SRC_DIR = path.join(__dirname, '../modules');
 const TEMPLATE_DIR = path.join(SRC_DIR, '__template__');
 const TARGET_DIR = path.join(SRC_DIR, moduleName);
 
