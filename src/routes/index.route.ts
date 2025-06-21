@@ -9,13 +9,16 @@ import authRoutes from '@modules/auth/auth.route'
 //user route
 import userRoutes from '@modules/user/user.route'
 
+//role route
+import roleRoutes from '@modules/role/role.route'
+
 const router = Router()
 
 router.use('/templates', templateRoutes)
 router.use('/tests', testRoutes)
 
 router.use('/auth', authRoutes)
-
 router.use('/users', userRoutes)
+router.use('/roles', roleRoutes)
 
 export default router
