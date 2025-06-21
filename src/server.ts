@@ -1,6 +1,6 @@
 // src/server.ts
-import './env';
 import 'module-alias/register';
+import './env';
 import { createServer } from 'http';
 import app from './app';
 import { connectMongoDB } from './config/database';

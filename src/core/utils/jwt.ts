@@ -12,6 +12,7 @@ export interface AccessTokenPayload {
   status: string
   email: string
   fullName: string
+  username: string
 }
 
 export interface RefreshTokenPayload {
@@ -26,6 +27,7 @@ export const generateAccessToken = (user: IUser): string => {
     status: user.status,
     email: user.email,
     fullName: user.fullName,
+    username: user.username
   }
 
   return jwt.sign(payload, ACCESS_TOKEN_SECRET, {

@@ -7,7 +7,7 @@
         "build": "tsc",
         "start": "node dist/server.js",
         "generate": "ts-node src/scripts/generate-module.ts",
-        "seed" : "ts-node src/scripts/seed.ts"
+        "seed": "ts-node src/scripts/seed.ts"
     },
     "keywords": [],
     "author": "",
@@ -45,14 +45,14 @@
         "typescript": "^5.8.3"
     },
     "_moduleAliases": {
-        "@modules": "src/modules",
-        "@routes": "src/routes",
-        "@config": "src/config",
-        "@middlewares": "src/core/middleware",
-        "@common": "src/core/utils",
-        "@shared": "src/shared",
-        "@socket": "src/socket",
-        "@usecases": "src/usecases",
-        "@types": "src/core/types"
+        "@modules": "dist/modules",
+        "@routes": "dist/routes",
+        "@config": "dist/config",
+        "@middlewares": "dist/core/middleware",
+        "@common": "dist/core/utils",
+        "@shared": "dist/shared",
+        "@socket": "dist/socket",
+        "@usecases": "dist/usecases",
+        "@types": "dist/core/types"
     }
 }
