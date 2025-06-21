@@ -6,7 +6,8 @@
         "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
         "build": "tsc",
         "start": "node dist/server.js",
-        "generate": "ts-node scripts/generate-module.ts"
+        "generate": "ts-node src/scripts/generate-module.ts",
+        "seed" : "ts-node src/scripts/seed.ts"
     },
     "keywords": [],
     "author": "",
