@@ -2,6 +2,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { verifyAccessToken } from '@common/jwt'
 import { AppError } from '@common'
+import { UserStatus } from '@shared/enums'
 
 export const requireAuth = (req: Request, _: Response, next: NextFunction) => {
   try {
@@ -18,10 +19,11 @@ export const requireAuth = (req: Request, _: Response, next: NextFunction) => {
 
     req.user = {
       _id: decoded._id,
+      username: decoded.username,
       roleId: decoded.roleId,
       email: decoded.email,
       fullName: decoded.fullName,
-      status: decoded.status,
+      status: decoded.status as UserStatus,
     }
 
     next()
