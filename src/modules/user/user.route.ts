@@ -1,6 +1,7 @@
 import express from 'express'
 import * as userController from './user.controller'
-import { requireAuth, validate, createAuditLog, LogAction } from '@middlewares'
+import { requireAuth, validate, createAuditLog } from '@middlewares'
+import { LogAction } from '@shared/enums'
 
 import { UpdateProfileSchema } from './dtos'
 

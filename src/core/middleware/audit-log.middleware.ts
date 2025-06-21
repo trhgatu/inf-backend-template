@@ -1,23 +1,13 @@
 import { Request, Response, NextFunction } from 'express'
 import AuditLog from '@modules/log/log.model'
 import { Types } from 'mongoose'
+import { LogAction } from '@shared/enums'
 
 interface CreateAuditLogOptions {
   action?: LogAction
   targetModel?: string
   targetId?: string | Types.ObjectId | ((req: Request) => string | Types.ObjectId)
   description?: string | ((req: Request) => string)
-}
-
-export enum LogAction {
-  CREATE = 'create',
-  UPDATE = 'update',
-  DELETE = 'delete',
-  READ = 'read',
-  LOGIN = 'login',
-  LOGOUT = 'logout',
-  RESET_PASSWORD = 'reset-password',
-  UPDATE_PROFILE = 'update-profile'
 }
 
 export const createAuditLog = (options: CreateAuditLogOptions = {}) => {
