@@ -1,13 +1,11 @@
 // src/server.ts
+import './env';
 import 'module-alias/register';
-import dotenv from 'dotenv';
 import { createServer } from 'http';
 import app from './app';
 import { connectMongoDB } from './config/database';
 import { initSocketServer } from './socket';
 import log from '@common/logger';
-
-dotenv.config();
 
 const port = process.env.PORT || 3000;
 const httpServer = createServer(app);
