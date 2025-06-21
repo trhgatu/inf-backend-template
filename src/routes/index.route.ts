@@ -14,6 +14,9 @@ import roleRoutes from '@modules/role/role.route'
 
 //permission route
 import permissionRoutes from '@modules/permission/permission.route'
+
+//upload route
+import uploadRoutes from '@modules/upload/upload.route'
 const router = Router()
 
 router.use('/templates', templateRoutes)
@@ -23,5 +26,6 @@ router.use('/auth', authRoutes)
 router.use('/users', userRoutes)
 router.use('/roles', roleRoutes)
 router.use('/permissions', permissionRoutes)
+router.use('/uploads', uploadRoutes)
 
 export default router
