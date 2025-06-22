@@ -7,23 +7,27 @@
 [![Swagger](https://img.shields.io/badge/Docs-Swagger-yellowgreen?style=flat\&logo=swagger)](#-api-documentation)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](LICENSE)
 
-> 🧹 A production-ready, modular backend template built with care – by **`trhgatu`** – for any serious project.
-> 🧠 Pre-configured Auth, RBAC, Logs, Upload, Realtime, and more.
+> 🧹 A production-ready, modular backend template built with care – by **`trhgatu`** – for any serious project.  
+> 🧠 Pre-configured Auth, RBAC, Logs, Upload, Realtime, CI, and more.
 
 ---
 
 ## 🚀 Features at a Glance
 
-* 🧽 **Modular Architecture** – maintainable & scalable
-* 🔐 **Auth (JWT)** – login, register, refresh, logout
-* 🛡️ **RBAC** – roles, permissions & route guards
-* 📍 **Audit Logs** – automatic admin action history
-* 💾 **MongoDB (Mongoose)** – models, schema & typing
-* 🧠 **Zod Validation** – strict DTO validation
-* ☁️ **Supabase Uploads** – image/files storage
-* 🔌 **Socket.IO** – built-in real-time events
-* 🔍 **Swagger Docs** – auto-generated per module
-* 🐳 **Dockerized** – ready for deployment
+| Symbol | Feature |
+|--------|---------|
+| 🧽 | **Modular Architecture** – maintainable & scalable |
+| 🔐 | **Auth (JWT)** – login, register, refresh, logout |
+| 🛡️ | **RBAC** – roles, permissions & route guards |
+| 📍 | **Audit Logs** – automatic admin action history |
+| 💾 | **MongoDB (Mongoose)** – schema, model, typing |
+| 🧠 | **Zod Validation** – strict DTO validation |
+| ☁️ | **Supabase Uploads** – image/files storage |
+| 🔌 | **Socket.IO** – real-time event system |
+| 🔍 | **Swagger Docs** – auto-generated per module |
+| 🐳 | **Dockerized** – ready for deployment |
+| 📦 | **GitHub Actions CI** – lint, build, test on push |
+| 🧪 | **ESLint v9** – strict typing, no `any`, no `console` |
 
 ---
 
@@ -157,7 +161,8 @@ SUPABASE_SERVICE_ROLE_KEY=your_key
 | `npm start`        | Run production build               |
 | `npm run seed`     | Seed database                      |
 | `npm run generate` | Generate new module via CLI script |
-
+| `npm run lint` | Run ESLint with strict config |
+	
 ---
 
 ## ⚖️ License
