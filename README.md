@@ -1,4 +1,4 @@
-# ⚔️ `trhgatu-inf-backend-template` · Backend Starter for Modern Web Apps
+# ⚔️ `inf-backend-template` · Backend Starter for Modern Web Apps
 
 [![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat\&logo=typescript\&logoColor=white)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-18.x-green?style=flat\&logo=node.js)](https://nodejs.org/)
