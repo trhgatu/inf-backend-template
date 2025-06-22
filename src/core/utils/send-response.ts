@@ -7,7 +7,7 @@ interface IResponse<T> {
   success?: boolean
   message: string
   data?: T
-  meta?: any
+  meta?: Record<string, unknown>
 }
 
 export const sendResponse = <T>({ res, statusCode = 200, success = true, message, data, meta }: IResponse<T>) => {

@@ -1,4 +1,4 @@
-import { UserPayload } from "@modules/user/user.model"
+import { UserPayload } from "@modules/user/user.payload"
 
 declare global {
   namespace Express {

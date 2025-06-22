@@ -12,9 +12,9 @@ export interface IAuditLog {
   statusCode: number
   duration: number
   metadata: {
-    body?: any
-    query?: any
-    params?: any
+    body?: Record<string, unknown>
+    query?: Record<string, unknown>
+    params?: Record<string, unknown>
     ip?: string
   }
   createdAt: Date

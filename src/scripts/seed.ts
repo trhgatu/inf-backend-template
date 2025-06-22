@@ -26,7 +26,7 @@ const runSeed = async () => {
   // Check if admin user already exists
   const existingAdmin = await User.findOne({ email: 'admin@example.com' })
   if (existingAdmin) {
-    console.log('Admin user already exists. Skipping seed.')
+    log.info('Admin user already exists. Skipping seed.')
     return process.exit(0)
   }
 
@@ -60,7 +60,6 @@ const runSeed = async () => {
   process.exit(0)
 }
 
-runSeed().catch((err) => {
-  console.error('Seed failed', err)
+runSeed().catch((_ ) => {
   process.exit(1)
 })

@@ -66,7 +66,7 @@ export const refreshAccessToken = async (token: string) => {
   let payload
   try {
     payload = verifyRefreshToken(token)
-  } catch (err) {
+  } catch {
     throw new AppError('Invalid refresh token', 401)
   }
 

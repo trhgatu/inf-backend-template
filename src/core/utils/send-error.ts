@@ -1,4 +1,3 @@
-// src/core/utils/sendError.ts
 import { Response } from 'express'
 
 interface IErrorResponse {
@@ -9,14 +8,26 @@ interface IErrorResponse {
   stack?: string
 }
 
+interface ErrorJsonResponse {
+  success: false
+  message: string
+  errors?: unknown[]
+  stack?: string
+}
+
 export const sendError = ({ res, statusCode = 500, message, errors, stack }: IErrorResponse) => {
-  const response: any = {
+  const response: ErrorJsonResponse = {
     success: false,
     message,
   }
 
-  if (errors && errors.length) response.errors = errors
-  if (process.env.NODE_ENV !== 'production' && stack) response.stack = stack
+  if (errors && errors.length) {
+    response.errors = errors
+  }
+
+  if (process.env.NODE_ENV !== 'production' && stack) {
+    response.stack = stack
+  }
 
   return res.status(statusCode).json(response)
 }

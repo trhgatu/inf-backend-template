@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express'
 import { verifyAccessToken } from '@common/jwt'
 import { AppError } from '@common'
 import { UserStatus } from '@shared/enums'
+import { isErrorWithName } from '@common/error'
 
 export const requireAuth = (req: Request, _: Response, next: NextFunction) => {
   try {
@@ -27,11 +28,12 @@ export const requireAuth = (req: Request, _: Response, next: NextFunction) => {
     }
 
     next()
-  } catch (err: any) {
-    if (err.name === 'TokenExpiredError') {
+  } catch (err: unknown) {
+    if (isErrorWithName(err, 'TokenExpiredError')) {
       return next(new AppError('Token expired', 401))
     }
-    if (err.name === 'JsonWebTokenError') {
+
+    if (isErrorWithName(err, 'JsonWebTokenError')) {
       return next(new AppError('Invalid token', 401))
     }
 
