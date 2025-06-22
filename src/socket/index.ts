@@ -1,5 +1,6 @@
 import { Server } from 'socket.io'
 import http from 'http'
+import log from '@common/logger'
 
 let io: Server
 
@@ -13,7 +14,7 @@ export const initSocketServer = (server: http.Server) => {
 
     if (userId) {
       socket.join(userId)
-      console.log(`🔌 [Socket] Connected: ${userId}`)
+      log.info(`🔌 [Socket] Connected: ${userId}`)
     }
 
     // TODO: register your own socket handlers here

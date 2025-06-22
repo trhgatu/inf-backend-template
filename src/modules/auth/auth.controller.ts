@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import * as authService from './auth.service'
-import { sendResponse } from '@common'
+import { getUserId, sendResponse } from '@common'
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -30,9 +30,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
 export const getMe = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = (req as any).user?._id
-    if (!userId) throw new Error('Unauthorized')
-
+    const userId = getUserId(req)
     const data = await authService.getMe(userId)
     sendResponse({ res, message: 'User info fetched', data })
   } catch (err) {

@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import * as roleService from './role.service'
-import { sendResponse } from '@common'
-import { AppError } from '@common'
+import { AppError, sendResponse } from '@common'
 
 export const getAll = async (_: Request, res: Response, next: NextFunction) => {
   try {

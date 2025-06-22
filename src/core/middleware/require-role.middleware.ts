@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import User from '@modules/user/user.model'
 import Role from '@modules/role/role.model'
 import { AppError } from '@common'
 

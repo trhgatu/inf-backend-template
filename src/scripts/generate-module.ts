@@ -1,10 +1,11 @@
+import log from '@common/logger';
 import fs from 'fs';
 import path from 'path';
 
 const moduleName = process.argv[2];
 
 if (!moduleName) {
-  console.error('Please provide a module name. Example: npm run generate quote');
+  log.error('Please provide a module name. Example: npm run generate quote');
   process.exit(1);
 }
 
@@ -40,9 +41,9 @@ const copyFolder = (src: string, dest: string) => {
 
 // Check if module already exists
 if (fs.existsSync(TARGET_DIR)) {
-  console.error(`Module "${moduleName}" already exists.`);
+  log.error(`Module "${moduleName}" already exists.`);
   process.exit(1);
 }
 
 copyFolder(TEMPLATE_DIR, TARGET_DIR);
-console.log(`Module "${moduleName}" has been created at src/modules/${moduleName}`);
+log.info(`Module "${moduleName}" has been created at src/modules/${moduleName}`);

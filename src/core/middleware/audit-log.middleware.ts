@@ -17,7 +17,7 @@ export const createAuditLog = (options: CreateAuditLogOptions = {}) => {
     res.on('finish', async () => {
       try {
         const duration = Date.now() - start
-        const user = (req as any).user
+        const user = req.user
 
         const resolvedTargetId =
           typeof options.targetId === 'function' ? options.targetId(req) : options.targetId
@@ -49,8 +49,9 @@ export const createAuditLog = (options: CreateAuditLogOptions = {}) => {
         })
 
         await log.save()
-      } catch (err) {
-        console.error('[AuditLog] Failed:', err)
+      } catch {
+        // TODO: Replace with proper logger in production
+        // console.error('[AuditLog] Failed:', err)
       }
     })
 

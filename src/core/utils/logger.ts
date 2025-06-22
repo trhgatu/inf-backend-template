@@ -1,4 +1,5 @@
 // src/core/utils/logger.ts
+/* eslint-disable no-console */
 import chalk from 'chalk'
 import dayjs from 'dayjs'
 
