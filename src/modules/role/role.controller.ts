@@ -1,11 +1,21 @@
 import { Request, Response, NextFunction } from 'express'
 import * as roleService from './role.service'
-import { AppError, sendResponse } from '@common'
+import { AppError, sendResponse, sendPaginatedResponse, buildCommonQuery } from '@common'
 
-export const getAll = async (_: Request, res: Response, next: NextFunction) => {
+export const getAllRoles = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = await roleService.getAllRoles()
-    sendResponse({ res, message: 'Roles fetched', data })
+    const page = parseInt(req.query.page as string) || 1
+    const limit = parseInt(req.query.limit as string) || 10
+    const { filters, sort } = buildCommonQuery(req, ['name'])
+    const result = await roleService.getAllRoles({page, limit}, filters, sort)
+    sendPaginatedResponse({
+      res,
+      message: 'All roles fetched',
+      data: result.data,
+      total: result.total,
+      currentPage: result.currentPage,
+      totalPages: result.totalPages,
+    })
   } catch (err) {
     next(err)
   }

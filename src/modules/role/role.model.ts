@@ -7,6 +7,7 @@ export interface IRole extends Document {
   permissions: string[]
   createdAt: Date
   updatedAt: Date
+  isDeleted?: boolean
 }
 
 const roleSchema: Schema<IRole> = new Schema(
@@ -14,6 +15,7 @@ const roleSchema: Schema<IRole> = new Schema(
     name: { type: String, required: true, unique: true },
     description: { type: String },
     permissions: [{ type: String }],
+    isDeleted: { type: Boolean, default: false }
   },
   { timestamps: true }
 )
