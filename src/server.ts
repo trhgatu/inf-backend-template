@@ -3,7 +3,8 @@ import 'module-alias/register';
 import './env';
 import { createServer } from 'http';
 import app from './app';
-import { connectMongoDB } from './config/database';
+import { connectMongoDB } from '@config/database';
+import { redisClient } from '@config/redis';
 import { initSocketServer } from './socket';
 import log from '@common/logger';
 
@@ -14,7 +15,10 @@ initSocketServer(httpServer);
 
 async function startServer() {
   await connectMongoDB();
-
+  if (!redisClient.isOpen) {
+    await redisClient.connect();
+    log.info("Connected to Redis Cloud");
+  }
   httpServer.listen(port, () => {
     log.info(`🚀 Server running at http://localhost:${port}`);
   });

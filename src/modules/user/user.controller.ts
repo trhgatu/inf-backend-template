@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import * as userService from './user.service'
-import { sendResponse } from '@common'
-import { getUserId } from '@common'
-
+import { sendResponse, getUserId, buildCommonQuery, sendPaginatedResponse } from '@common'
 
 export const getMe = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -24,10 +22,20 @@ export const updateMe = async (req: Request, res: Response, next: NextFunction) 
   }
 }
 
-export const getAllUsers = async (_: Request, res: Response, next: NextFunction) => {
+export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = await userService.getAllUsers()
-    sendResponse({ res, message: 'All users fetched', data })
+    const page = parseInt(req.query.page as string) || 1
+    const limit = parseInt(req.query.limit as string) || 10
+    const { filters, sort } = buildCommonQuery(req, ['fullName', 'email'])
+    const result = await userService.getAllUsers({ page, limit }, filters, sort)
+    sendPaginatedResponse({
+      res,
+      message: 'All users fetched',
+      data: result.data,
+      total: result.total,
+      currentPage: result.currentPage,
+      totalPages: result.totalPages,
+    });
   } catch (err) {
     next(err)
   }
