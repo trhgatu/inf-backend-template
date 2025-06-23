@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import * as roleService from './role.service'
 import { AppError, sendResponse, sendPaginatedResponse, buildCommonQuery } from '@common'
 
-export const getAllRoles = async (req: Request, res: Response, next: NextFunction) => {
+export const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const page = parseInt(req.query.page as string) || 1
     const limit = parseInt(req.query.limit as string) || 10
