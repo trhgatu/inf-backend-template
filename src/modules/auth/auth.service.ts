@@ -48,11 +48,21 @@ export const login = async (input: LoginInput) => {
   const accessToken = generateAccessToken(user)
   const refreshToken = generateRefreshToken(user)
 
+  const sanitizedUser = {
+    _id: user._id,
+    fullName: user.fullName,
+    email: user.email,
+    roleId: user.roleId,
+    status: user.status,
+  }
+
   return {
     accessToken,
     refreshToken,
+    user: sanitizedUser,
   }
 }
+
 
 export const getMe = async (userId: string) => {
   const user = await User.findById(userId).select('-password')
