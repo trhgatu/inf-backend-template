@@ -1,12 +1,26 @@
 import { Request, Response, NextFunction } from 'express'
 import * as permissionService from './permission.service'
-import { sendResponse } from '@common'
-import { AppError } from '@common'
+import {
+  AppError,
+  buildCommonQuery,
+  sendPaginatedResponse,
+  sendResponse
+} from '@common'
 
-export const getAll = async (_: Request, res: Response, next: NextFunction) => {
+export const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = await permissionService.getAllPermissions()
-    sendResponse({ res, message: 'Permissions fetched', data })
+    const page = parseInt(req.query.page as string) || 1
+    const limit = parseInt(req.query.limit as string) || 10
+    const { filters, sort } = buildCommonQuery(req, ['name'])
+    const result = await permissionService.getAllPermissions({ page, limit }, filters, sort)
+    sendPaginatedResponse({
+      res,
+      message: 'All permissions fetched',
+      data: result.data,
+      total: result.total,
+      currentPage: result.currentPage,
+      totalPages: result.totalPages,
+    })
   } catch (err) {
     next(err)
   }
