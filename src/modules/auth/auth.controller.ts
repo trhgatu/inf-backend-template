@@ -13,7 +13,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { accessToken, refreshToken } = await authService.login(req.body)
+    const { accessToken, refreshToken, user } = await authService.login(req.body)
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
@@ -22,7 +22,14 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
       maxAge: 7 * 24 * 60 * 60 * 1000,
     })
 
-    sendResponse({ res, message: 'Login successful', data: { accessToken } })
+    sendResponse({
+      res,
+      message: 'Login successful',
+      data: {
+        token: accessToken,
+        user,
+      },
+    })
   } catch (err) {
     next(err)
   }

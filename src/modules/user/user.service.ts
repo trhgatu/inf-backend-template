@@ -19,5 +19,5 @@ export const updateMe = async (userId: string, payload: UpdateProfileDto) => {
 }
 
 export const getAllUsers = async () => {
-  return User.find({ isDeleted: false }).select('-password')
+  return User.find({ isDeleted: false }).select('-password').populate('roleId', 'name')
 }
