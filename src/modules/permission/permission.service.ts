@@ -2,6 +2,8 @@ import Permission, { IPermission } from './permission.model'
 import { CreatePermissionInput, UpdatePermissionInput } from './dtos'
 import { paginate, PaginationParams, PaginationResult } from '@common'
 import { getCache, setCache } from '@shared/services'
+
+
 export const getAllPermissions = async (
   { page, limit }: PaginationParams,
   filters: Record<string, unknown> = {},
@@ -21,7 +23,6 @@ export const getAllPermissions = async (
     { page, limit },
     finalFilters,
     sort,
-    [{ path: 'permissions', select: 'name' }],
   )
 
   await setCache(cacheKey, result)

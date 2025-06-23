@@ -19,7 +19,7 @@ export const getCache = async <T = unknown>(key: string): Promise<T | null> => {
 export const setCache = async <T>(
   key: string,
   data: T,
-  ttlSeconds = 600
+  ttlSeconds = 5
 ): Promise<void> => {
   try {
     await redisClient.setEx(key, ttlSeconds, JSON.stringify(data));
