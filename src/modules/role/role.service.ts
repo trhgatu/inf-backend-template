@@ -2,7 +2,7 @@ import Role, { IRole } from '@modules/role/role.model'
 import { paginate } from '@common'
 import { CreateRoleInput, UpdateRoleInput } from './dtos'
 import type { PaginationParams, PaginationResult } from '@common'
-import { getCache, setCache } from '@shared/services'
+import { getCache, setCache, deleteKeysByPattern } from '@shared/services'
 
 export const getAllRoles = async (
   { page, limit }: PaginationParams,
@@ -34,14 +34,22 @@ export const getRoleById = (id: string) => {
   return Role.findById(id)
 }
 
-export const createRole = (payload: CreateRoleInput) => {
-  return Role.create(payload)
+export const createRole = async (payload: CreateRoleInput) => {
+  const role = await Role.create(payload)
+  // Clear cache for roles after creation
+  await deleteKeysByPattern('roles:*')
+  return role;
 }
 
-export const updateRole = (id: string, payload: UpdateRoleInput) => {
-  return Role.findByIdAndUpdate(id, payload, { new: true })
+export const updateRole = async (id: string, payload: UpdateRoleInput) => {
+  const role = Role.findByIdAndUpdate(id, payload, { new: true })
+  // Clear cache for roles after update
+  await deleteKeysByPattern('roles:*')
+  return role
 }
 
-export const deleteRole = (id: string) => {
-  return Role.findByIdAndDelete(id)
+export const deleteRole = async (id: string) => {
+  const role = Role.findByIdAndDelete(id)
+  await deleteKeysByPattern('roles:*')
+  return role
 }

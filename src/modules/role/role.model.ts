@@ -14,7 +14,9 @@ const roleSchema: Schema<IRole> = new Schema(
   {
     name: { type: String, required: true, unique: true },
     description: { type: String },
-    permissions: [{ type: String }],
+    permissions: [
+      { type: Schema.Types.ObjectId, ref: 'Permission' }
+    ],
     isDeleted: { type: Boolean, default: false }
   },
   { timestamps: true }

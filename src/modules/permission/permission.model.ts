@@ -6,6 +6,7 @@ export interface IPermission extends Document {
   isActive: boolean
   createdAt: Date
   updatedAt: Date
+  isDeleted?: boolean
 }
 
 const permissionSchema = new Schema<IPermission>(
@@ -13,6 +14,7 @@ const permissionSchema = new Schema<IPermission>(
     name: { type: String, required: true, unique: true },
     description: { type: String },
     isActive: { type: Boolean, default: true },
+    isDeleted: { type: Boolean, default: false }
   },
   { timestamps: true }
 )
