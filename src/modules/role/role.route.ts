@@ -13,7 +13,7 @@ const router = express.Router()
 
 router.use(requireAuth, requireRole(['admin']))
 
-router.get('/', roleController.getAll)
+router.get('/', roleController.getAllRoles)
 
 router.get('/:id', roleController.getById)
 
