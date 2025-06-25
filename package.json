@@ -6,7 +6,7 @@
         "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
         "build": "tsc",
         "start": "node dist/server.js",
-        "generate": "ts-node src/scripts/generate-module.ts",
+        "generate": "ts-node -r tsconfig-paths/register src/scripts/generate-module.ts",
         "seed": "ts-node src/scripts/seed.ts",
         "lint": "eslint . --ext .ts"
     },
@@ -52,18 +52,19 @@
         "eslint-plugin-unused-imports": "^4.1.4",
         "globals": "^16.2.0",
         "ts-node-dev": "^2.0.0",
+        "tsconfig-paths": "^4.2.0",
         "typescript": "^5.8.3",
         "typescript-eslint": "^8.34.1"
     },
     "_moduleAliases": {
-        "@modules": "dist/modules",
-        "@routes": "dist/routes",
-        "@config": "dist/config",
-        "@middlewares": "dist/core/middleware",
-        "@common": "dist/core/utils",
-        "@shared": "dist/shared",
-        "@socket": "dist/socket",
-        "@usecases": "dist/usecases",
-        "@types": "dist/core/types"
+        "@modules": "src/modules",
+        "@routes": "src/routes",
+        "@config": "src/config",
+        "@middlewares": "src/core/middleware",
+        "@common": "src/core/utils",
+        "@shared": "src/shared",
+        "@socket": "src/socket",
+        "@usecases": "src/usecases",
+        "@types": "src/core/types"
     }
 }
